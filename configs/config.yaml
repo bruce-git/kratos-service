@@ -1,0 +1,32 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 1s
+  id: "1"
+  name: "Pack"
+  version: "1.0"
+  environment: "local"
+data:
+  database:
+    driver: mysql
+    source: root:root@tcp(127.0.0.1:3306)/test
+  redis:
+    addr: 127.0.0.1:6379
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+logger:
+  path: "../../log/"
+  maxSize: 500
+  maxBackups: 5
+  maxAge: 5
+  compress: false
+  level: 'info'
+trace:
+  batcher: true
+  endpoint: "http://jaeger:14268/api/traces"
+  trace_file_path: "../../log/trace.log"
+  exporter: "jaeger"
+

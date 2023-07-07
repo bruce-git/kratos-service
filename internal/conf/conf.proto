@@ -1,0 +1,63 @@
+syntax = "proto3";
+package kratos.api;
+
+option go_package = "yasf.com/backend/playground/kratos-layout/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+  Logger logger = 3;
+  Trace trace = 4;
+}
+
+message Server {
+  message HTTP {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  HTTP http = 1;
+  GRPC grpc = 2;
+  string id = 3;
+  string name = 4;
+  string version = 5;
+  string environment = 6;
+}
+
+message Data {
+  message Database {
+    string driver = 1;
+    string source = 2;
+  }
+  message Redis {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration read_timeout = 3;
+    google.protobuf.Duration write_timeout = 4;
+  }
+  Database database = 1;
+  Redis redis = 2;
+}
+
+message Logger{
+  int32  maxSize = 1;
+  int32     maxBackups = 2;
+  int32     maxAge = 3;
+  bool    compress = 4;
+  string  path = 5;
+  string  level = 6;
+}
+
+message Trace{
+  string  endpoint = 1;
+  string  trace_file_path = 2;
+  string  exporter = 3;
+  bool   batcher = 4;
+}
